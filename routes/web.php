@@ -5,30 +5,47 @@ Route::get('/login', function () {
     return 'Login';
 })->name('login');
 //^^^^ ('podendo ser um array^dentro dos paraneteses');^^^^
-
+/*
 Route::middleware([])->group (function(){
 //(['auth']) responsável pela validação de segurança. Se estiver vazio([]) não autentica a segurança.
 
-    Route::prefix('panel')->group(function(){
-        Route::get ("/dashboard", function (){
-             return 'Home Admin';
-        });
-        
-        Route::get ("/financeiro", function (){
-            return 'Financeiro Admin';
-        });
-        
-        Route::get ("/produtos", function (){
-            return 'Produtos Admin';
-        });
+    Route::prefix('admin')->group(function(){
 
-        Route::get ("/", function (){
-            return 'Admin';
-       });
+        Route::namespace('Admin')->group(function(){
+
+            Route::name('admin.')->group (function(){
+
+                Route::get ('/dashboard', 'TesteController@teste')->name('admin.dashboard');
+        
+                Route::get ('/financeiro', 'TesteController@teste')->name('admin.financeiro') ;
+        
+                Route::get ('/produtos', 'TesteController@teste')->name('admin.produtos') ;
+
+                Route::get ('/',function(){
+                    return redirect()->route('admin.dahboard');
+                })->name('home') ;
+            });  
+        });
     });
 });
+*/
 
+Route::group([
+    'middleawre' =>[],
+    'prefix' =>'admin',
+    'namespace' => 'Admin',
+    'name' =>'admin.'
+], function(){
+    Route::get ('/dashboard', 'TesteController@teste')->name('dashboard');
+        
+    Route::get ('/financeiro', 'TesteController@teste')->name('financeiro') ;
 
+    Route::get ('/produtos', 'TesteController@teste')->name('produtos') ;
+
+    Route::get ('/',function(){
+        return redirect()->route('admin.dahboard');
+    })->name('home') ;
+});
 
 //Route::get ("/admin/dashboard", function (){
 //return 'Home Admin';
