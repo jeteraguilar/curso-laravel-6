@@ -31,8 +31,17 @@ class ProductController extends Controller
     public function index()
     {
         //$products = ['Product 01','Product 02','Product 03'];
+        $teste = 123;
+        $teste2 = 321;
+        $teste3 = [1,2,3,4,5];
+        $products = ['Tv', 'Geladeira', 'forno', 'sofá'];
 
-        return 'Listagem de produtos';//$products;
+//*****^^^^^^variável^^^^^$teste123 */
+
+       // return view('teste',[
+       //     'teste'=> $teste
+       // ]);
+       return view('admin.pages.products.index',compact('teste','teste2','teste3','products'));
     }
 
     /**
