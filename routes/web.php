@@ -1,6 +1,6 @@
 <?php
 
-Route::resource('products','ProductController');
+Route::resource('products','ProductController');//->middleware('auth');
 
 /*
 Route::delete('products/{id}','ProductController@destroy')->name('products.destroy');
@@ -19,7 +19,7 @@ Route::post('products', 'ProductController@store')->name('products.store');
 Route::get('/login', function () {
     return 'Login';
 })->name('login');
-//^^^^ ('podendo ser um array^dentro dos paraneteses');^^^^
+//^^^^ ('podendo ser um array dentro dos paraneteses');^^^^
 /*
 Route::middleware([])->group (function(){
 //(['auth']) responsável pela validação de segurança. Se estiver vazio([]) não autentica a segurança.
