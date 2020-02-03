@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ use App\Http\Requests\StoreUpdateProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -18,10 +18,10 @@ class ProductController extends Controller
        /*$this->middleware('auth')->only([
            'create','destroy','show'
            ]);*/
-           $this->middleware('auth')->except([
-               'index','show'
-               ]); 
-    }
+    //        $this->middleware('auth')->except([
+    //            'index','show'
+    //            ]); 
+     }
     
     /**
      * Display a listing of the resource.
@@ -51,18 +51,47 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return 'Exibindo o form de cadastro de um novo produto';
+        return view('admin.pages.products.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUpdateProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProductRequest $request)
     {
-        return 'Cadastrando um novo produto';
+            dd('OK');
+        // $request->validate([
+        //     'name'=> 'required|min:3|max:255',
+        //     'description' => 'nullable|min:3|max:10000',
+        //     'photo' => 'required|image',
+        // ]);
+
+        // dd('OK');
+//****************************************************************** */
+        // dd($request->all());
+
+        //  dd($request->name);
+
+        // dd($request->only(['name','_token']));
+
+        // dd($request->has('name'));
+    
+        // dd($request->input('name', 'default'));
+
+        // dd($request->except('name','description'));
+
+   
+        // if($request->file('photo')->isValid());
+        //     dd($request->photo->getClientOriginalName());
+
+        if($request->file('photo')->isValid()){
+            // dd($request->file('photo')->store('products'));
+            $nameFile = $request->name . '.'. $request->photo->extension();
+            dd($request->file('photo')->storeAs('products',$nameFile));
+        }
     }
 
     /**
@@ -84,7 +113,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return "Editando o produto: {$id}";
+        return view('admin.pages.products.edit',compact ('id'));
     }
 
     /**
@@ -96,7 +125,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return "Editando o produto: {$id}";
+        dd("Editando o produto: {$id}");
     }
 
     /**
