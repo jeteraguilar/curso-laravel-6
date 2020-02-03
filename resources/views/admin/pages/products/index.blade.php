@@ -96,6 +96,6 @@
 
 @push('scripts')
     <script>
-        document.body.style.background -
+        document.body.style.background = '#dcd7d7'
     </script>
 @endpush
