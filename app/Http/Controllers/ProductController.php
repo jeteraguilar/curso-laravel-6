@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Product;
  use App\Http\Requests\StoreUpdateProductRequest;
 use Illuminate\Http\Request;
 
@@ -31,17 +32,17 @@ class ProductController extends Controller
     public function index()
     {
         //$products = ['Product 01','Product 02','Product 03'];
-        $teste = 123;
-        $teste2 = 321;
-        $teste3 = [1,2,3,4,5];
-        $products = ['Tv', 'Geladeira', 'forno', 'sofá'];
+      
+        $products = Product::all();
 
 //*****^^^^^^variável^^^^^$teste123 */
 
        // return view('teste',[
        //     'teste'=> $teste
        // ]);
-       return view('admin.pages.products.index',compact('teste','teste2','teste3','products'));
+       return view('admin.pages.products.index',[
+           'products' => $products,
+       ]);
     }
 
     /**
