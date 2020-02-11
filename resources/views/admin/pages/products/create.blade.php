@@ -14,23 +14,27 @@
     </form>
 @endsection --}}
 
-@section('content')
-    <h1>Cadastrar novo Produto</h1>
+ @section('content')
+     <h1>Cadastrar novo Produto</h1>
 
-    @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li> {{ $error }} </li>
-            @endforeach
-        </ul>    
-    @endif
+     @include('admin.includes.alerts')
 
-<form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('products.store')}}" method="post" enctype="multipart/form-data" class="form">
         @csrf
-<input type="text" name="name" placeholder="Nome:" value="{{old('name') }}">
-        <input type="text" name="description" placeholder="Descrição:"value={{old('description') }}>
-        <input type="file" name="photo">
-        <button type="submit">Enviar</button>
+        <div class="form-group">
+            <input type="text" class="form-contol" name="name" placeholder="Nome:" value="{{old('name') }}">
+        </div>
+        <div class="form-group">
+            <input type="text"  name="price" class="form-control"  placeholder="Preço:"value={{old('price') }}>
+        </div>
+        <div class="form-group">
+        <input type="text" name="description" class="form-control" placeholder="Descrição:"value={{old('description') }}>
+        </div>
+        <div class="form-group">
+        <input type="file" name="image" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </div>
     </form>
 @endsection
 

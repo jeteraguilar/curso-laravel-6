@@ -33,7 +33,10 @@ class ProductController extends Controller
     {
         //$products = ['Product 01','Product 02','Product 03'];
       
-        $products = Product::all();
+        // $products = Product::where()->get();
+        // $products = Product::all();
+        // $products = Product::paginate();
+        $products = Product::latest()->paginate();
 
 //*****^^^^^^variável^^^^^$teste123 */
 
@@ -63,7 +66,11 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductRequest $request)
     {
-            dd('OK');
+        $data = $request->only('name', 'description','price');
+        
+       Product::create($data);
+        
+        return redirect()->route('products.index');
         // $request->validate([
         //     'name'=> 'required|min:3|max:255',
         //     'description' => 'nullable|min:3|max:10000',
@@ -88,11 +95,11 @@ class ProductController extends Controller
         // if($request->file('photo')->isValid());
         //     dd($request->photo->getClientOriginalName());
 
-        if($request->file('photo')->isValid()){
-            // dd($request->file('photo')->store('products'));
-            $nameFile = $request->name . '.'. $request->photo->extension();
-            dd($request->file('photo')->storeAs('products',$nameFile));
-        }
+        // if($request->file('photo')->isValid()){
+        //     // dd($request->file('photo')->store('products'));
+        //     $nameFile = $request->name . '.'. $request->photo->extension();
+        //     dd($request->file('photo')->storeAs('products',$nameFile));
+        
     }
 
     /**
@@ -103,7 +110,17 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return "Exibindo o produto do id: {$id}";
+        // $product = Product::where('id',$id) ->first();
+        if(!$product = Product::find($id))
+            return redirect()->back();
+        // dd($product);
+
+        return view('admin.pages.products.show',[
+            'product' => $product
+        ]);
+        // return "Detalhes do rpoduto {$id}"
+    
+    
     }
 
     /**
